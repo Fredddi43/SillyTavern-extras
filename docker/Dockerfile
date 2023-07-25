@@ -24,9 +24,13 @@ SHELL ["conda", "run", "-n", "extras", "/bin/bash", "-c"]
 WORKDIR /sillytavern-extras/
 COPY . .
 
-ARG REQUIREMENTS
-RUN pip install -r $REQUIREMENTS
+#ARG REQUIREMENTS
+#RUN pip install -r $REQUIREMENTS
+RUN pip install flask
 RUN python -c "import flask"
 
 #ARG MODULES
 #CMD ["python","server.py","--enable-modules=$MODULES"]
+
+#ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "extras", "python", "run.py"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "extras", "python", "-c", "import flask"]
