@@ -6,6 +6,7 @@ ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
 
 ENV DEBIAN_FRONTEND noninteractive
+WORKDIR /sillytavern-extras/
 RUN apt-get update && apt-get install -y --no-install-recommends \
         python3 python3-venv wget build-essential
 
@@ -15,21 +16,14 @@ RUN wget \
     && bash Miniconda3-latest-Linux-x86_64.sh -b \
     && rm -f Miniconda3-latest-Linux-x86_64.sh
 
-RUN conda --version
-
-RUN conda init
-
 RUN conda create -n extras python=3.10
 
 SHELL ["conda", "run", "-n", "extras", "/bin/bash", "-c"]
 
 RUN conda install pytorch=2.0.0 torchvision=0.15.0 torchaudio=2.0.0 pytorch-cuda=11.7 git -c pytorch -c nvidia
 
-WORKDIR /sillytavern-extras/
-COPY . .
-
 ARG REQUIREMENTS
-RUN conda activate extras && pip install -r $REQUIREMENTS
+RUN pip install -r $REQUIREMENTS
 
 ARG MODULES
 CMD ["python","server.py","--enable-modules=$MODULES"]
