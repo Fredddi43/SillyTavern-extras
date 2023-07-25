@@ -19,13 +19,14 @@ RUN conda create -n extras python=3.10
 
 SHELL ["conda", "run", "-n", "extras", "/bin/bash", "-c"]
 
-RUN conda install pytorch=2.0.0 torchvision=0.15.0 torchaudio=2.0.0 pytorch-cuda=11.7 git -c pytorch -c nvidia
+#RUN conda install pytorch=2.0.0 torchvision=0.15.0 torchaudio=2.0.0 pytorch-cuda=11.7 git -c pytorch -c nvidia
 
 WORKDIR /sillytavern-extras/
 COPY . .
 
 ARG REQUIREMENTS
 RUN pip install -r $REQUIREMENTS
+RUN python -c "import flask"
 
-ARG MODULES
-CMD ["python","server.py","--enable-modules=$MODULES"]
+#ARG MODULES
+#CMD ["python","server.py","--enable-modules=$MODULES"]
