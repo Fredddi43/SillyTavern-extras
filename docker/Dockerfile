@@ -29,7 +29,7 @@ WORKDIR /sillytavern-extras/
 COPY . .
 
 ARG REQUIREMENTS
-RUN pip install -r $REQUIREMENTS
+RUN conda activate extras && pip install -r $REQUIREMENTS
 
 ARG MODULES
 CMD ["python","server.py","--enable-modules=$MODULES"]
