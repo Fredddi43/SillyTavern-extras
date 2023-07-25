@@ -19,7 +19,7 @@ RUN conda --version
 
 RUN conda init
 
-RUN conda create -n extras
+RUN conda create -n extras python=3.10
 
 RUN /bin/bash -c "source activate extras"
 
