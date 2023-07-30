@@ -29,3 +29,5 @@ RUN pip install -r $REQUIREMENTS
 
 ARG MODULES
 CMD ["python","server.py","--enable-modules=$MODULES"]
+
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "extras"]
