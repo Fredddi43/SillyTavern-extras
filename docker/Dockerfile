@@ -15,7 +15,7 @@ RUN wget \
     && bash Miniconda3-latest-Linux-x86_64.sh -b \
     && rm -f Miniconda3-latest-Linux-x86_64.sh
 
-RUN conda create -n extras python=3.10
+RUN conda create -n extras python=3.11
 
 SHELL ["conda", "run", "-n", "extras", "/bin/bash", "-c"]
 
